@@ -1,5 +1,6 @@
 import socket
 import math
+from colored_printed import print_colored
 
 class Vision:
     _ip: str = '10.10.1.10'
@@ -9,13 +10,13 @@ class Vision:
     def __init__(self, ip: str = None, port: int = None) -> None:
         self._port = port or self._port
         self._ip = ip or self._ip
-        print(f'Connecting to vision at {self._ip}:{self._port}...')
+        print_colored(f'Connecting to vision at {self._ip}:{self._port}...','magenta')
         self.__connect()
 
     def __connect(self) -> None:
         self._client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._client.connect((self._ip, self._port))
-        print('Connected to vision.')
+        print_colored('Connected to vision.','magenta')
 
     def get_obj_pos(self) -> list:
         dx,dy,dradian = 0,0,0
@@ -29,5 +30,5 @@ class Vision:
                 dy = dy/1000
                 # convert to radian
                 dradian = dtheta%180*math.pi/180
-                print(f'Object position: {dx,dy,dradian}')
+                print_colored(f'Object position: {dx,dy,dradian}','magenta')
         return [dx,dy,dradian]

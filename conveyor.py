@@ -1,5 +1,6 @@
 import socket
 import time
+from colored_printed import print_colored
 
 class Conveyor:
     _ip: str = "10.10.0.98"
@@ -9,16 +10,16 @@ class Conveyor:
     def __init__(self, ip: str = None, port: int = None) -> None:
         self._port = port or self._port
         self._ip = ip or self._ip
-        print(f"Connecting to conveyor at {self._ip}:{self._port}...")
+        print_colored(f"Connecting to conveyor at {self._ip}:{self._port}...",'green')
         self.__connect()
 
     def __connect(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((self._ip, self._port))
         s.listen()
-        print(f"Server listening at {self._ip}:{self._port}")
+        print_colored(f"Server listening at {self._ip}:{self._port}",'green')
         c, addr = s.accept()
-        print(f"Connected by {addr}")
+        print_colored(f"Connected by {addr}",'green')
         c.sendall(b"activate,tcp,0.0\n")
         c.sendall(b"pwr_on,conv,0\n")
         self._client = c
@@ -26,10 +27,10 @@ class Conveyor:
     def run_conveyor(self):
         time.sleep(1)
         self._client.sendall(b"jog_fwd,conv,0\n")
-        print(self._client.recv(20))
+        print_colored(self._client.recv(20),'green')
 
     def stop_conveyor(self):
-        print("Stopping conveyor")
+        print_colored("Stopping conveyor",'green')
         time.sleep(1)
         self._client.sendall(b"jog_stop,conv,0\n")
 
