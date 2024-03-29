@@ -19,7 +19,7 @@ class Vision:
         print_colored('Connected to vision.','magenta')
 
     def get_obj_pos(self) -> list:
-        dx,dy,dradian = 0,0,0
+        dx,dy,dradian = None,None,None        
         while dx and dy and dradian:
             obj_pos = self._client.recv(255).decode('utf-8')
             poslist = [x for x in obj_pos.strip()[1:-1].split(',')]

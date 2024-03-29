@@ -55,8 +55,8 @@ operation_pos(s)
 time.sleep(2)
 obj_pos = s_v.recv(255)
 # turn MSG into list
-dx,dy,dradian = 0,0,0
-while dx and dy and dradian:
+dx,dy,dradian = None,None,None
+while dx or dy or dradian:
     obj_pos = s_v.recv(255).decode('utf-8')
     poslist = [x for x in obj_pos.strip()[1:-1].split(',')]
     # turn MSG into list
