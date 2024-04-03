@@ -1,3 +1,4 @@
 /.DS_Store
 /Materials
-__pycache__/arm.cpython-310.pyc
+__pycache__/
+test.py

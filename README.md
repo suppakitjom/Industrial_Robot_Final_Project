@@ -39,33 +39,33 @@ _Calibration stage_
 
 </div>
 
-After that, the frame in then inspected to see if if finds the object of interest. Here we are using the Match Pattern function to find the object.
+After that, the frame in then inspected to see if if finds the object of interest. Here we are using the Object Detection function to find the object.
 
 <div align="center">
 
-![Match Pattern function](./imgs/match_pattern.png)
+![Object Detection function](./imgs/object_detection.png)
 
-_Match Pattern function_
+_Object Detection function_
+
+![Object Detection configuration](./imgs/settings.png)
+
+_Object Detection configuration_
+
+![Object Detection result](./imgs/object_detection_results.png)
+
+_Object Detection result_
 
 </div>
 
-The function will then return the relative x-y coordinates of the images in the unit of millimeters along with the orientation of the object in the unit of degrees. The coordinates are then broadcasted through TCP/IP.
+The function will then return the relative x-y coordinates of the images in the unit of millimeters. The coordinates are then broadcasted through TCP/IP.
+
+In addition, an overlay displaying the real time position of the object is displayed on the video feed.
 
 <div align="center">
 
-![Broadcasting the coordinates](./imgs/send_to_tcp.png)
+![Overlay](./imgs/detection.png)
 
-_Broadcasting the coordinates and orientation_
-
-</div>
-
-In addition, an overlay displaying the real time position and orientation of the object is displayed on the video feed.
-
-<div align="center">
-
-![Overlay](./imgs/real_time_overlay.png)
-
-_Overlay displaying the real time position and orientation of the object_
+_Overlay displaying the real time position of the object_
 
 </div>
 

@@ -26,6 +26,7 @@ class Conveyor:
 
     def run_conveyor(self):
         time.sleep(1)
+        self._client.sendall(b"set_vel,conv,10\n")
         self._client.sendall(b"jog_fwd,conv,0\n")
         print_colored(self._client.recv(20),'green')
 
@@ -33,11 +34,19 @@ class Conveyor:
         print_colored("Stopping conveyor",'green')
         time.sleep(1)
         self._client.sendall(b"jog_stop,conv,0\n")
+        print_colored(self._client.recv(20),'green')
 
-    def set_speed(self, speed: int):
+    def set_speed(self, speed: float):
         time.sleep(1)
-        self._client.sendall(f"set_vel,conv,{speed}\n".encode())
+        command = f"set_vel,conv,{speed}\n".encode()
+        self._client.sendall(command)
+        print(command)
+        print_colored(self._client.recv(20),'green')
+        
 
-# if __name__ == "__main__":
-#     conveyor = Conveyor()
-#     conveyor.stop_conveyor()
+if __name__ == "__main__":
+    conveyor = Conveyor()
+    # conveyor.set_speed(200)
+    conveyor.run_conveyor()
+    input()
+    conveyor.stop_conveyor()

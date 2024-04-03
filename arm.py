@@ -37,9 +37,9 @@ class Arm:
         relative = True,
     ):
         if relative:
-            move_cmd = f'movej(pose_add(get_actual_tcp_pose(),p[{x},{y},{z},{rx},{ry},{rz}]),{acceleration},{velocity},{time},{blend_radius})'
+            move_cmd = f'movej(pose_add(get_actual_tcp_pose(),p[{x},{y},{z},{rx},{ry},{rz}]),{acceleration},{velocity},{task_time},{blend_radius})'
         else:
-            move_cmd = f'movej(p[{x},{y},{z},{rx},{ry},{rz}],{acceleration},{velocity},{time},{blend_radius})'
+            move_cmd = f'movej(p[{x},{y},{z},{rx},{ry},{rz}],{acceleration},{velocity},{task_time},{blend_radius})'
         print_colored(f'Sending move command: {move_cmd}','yellow')
         self.__send(move_cmd)
         time.sleep(task_time or 1)
@@ -59,27 +59,28 @@ class Arm:
         relative = True,
     ):
         if relative:
-            move_cmd = f'movel(pose_add(get_actual_tcp_pose(),p[{x},{y},{z},{rx},{ry},{rz}]),{acceleration},{velocity},{time},{blend_radius})\n'
+            move_cmd = f'movel(pose_add(get_actual_tcp_pose(),p[{x},{y},{z},{rx},{ry},{rz}]),{acceleration},{velocity},{task_time},{blend_radius})'
         else:
-            move_cmd = f'movel(p[{x},{y},{z},{rx},{ry},{rz}],{acceleration},{velocity},{time},{blend_radius})'
+            move_cmd = f'movel(p[{x},{y},{z},{rx},{ry},{rz}],{acceleration},{velocity},{task_time},{blend_radius})'
         print_colored(f'Sending move command: {move_cmd}','yellow')
         self.__send(move_cmd)
         time.sleep(task_time or 1)
 
     def standby_pos(self):
-        self.movej(x=.046, y=-.32, z=-.1, rx=2.2, ry=2.239, rz=0, task_time=1, relative=False)
+        self.movej(x=.046, y=-.32, z=.2, rx=2.2, ry=2.239, rz=0, task_time=2, relative=False)
         print_colored('Arm moving to standby position...','yellow')
 
     def home_pos(self):
+        # self._client.send(b'movel(p[.116,-.3,.2,0,-3.143,0],0.2,0.2,2,0)\n')
         # self.movej(x=.116, y=-.3, z=.2, rx=0, ry=-3.143, rz=0, task_time=1, relative=False)
         angles = (np.array([-48.48, -101.48, -40.23, -128.24, 90.05, 41.52])*np.pi/180).astype(str)
-        move_cmd = f'movej([{",".join(angles)}],1,1,0,0)'
-        time.sleep(2)
+        move_cmd = f'movej([{",".join(angles)}],1,1,2,0)'
+        self.__send(move_cmd)
         print_colored('Arm moving to home position...','yellow')
 
 
 
 if __name__ == '__main__':
     arm = Arm()
-    arm.home_pos()
+    # arm.home_pos()
     arm.standby_pos()

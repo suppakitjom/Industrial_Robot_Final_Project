@@ -21,21 +21,20 @@ class Gripper:
         self._client.send(b'GET ACT\n')
         if '1' in str(self._client.recv(10), 'UTF-8'):
             print_colored('ACT Received. Activating gripper','yellow')
-        self._client.send(b'SET GTO 1\n')
+        # self._client.send(b'SET GTO 1\n')
 
     def open(self):
-        # self._client.send(b'SET FOR 214\n')
-        # self._client.send(b'SET SPE 173\n')
+        self._client.send(b'SET FOR 214\n')
+        self._client.send(b'SET SPE 255\n')
         self._client.send(b'SET POS 0\n')
         print_colored(str(self._client.recv(255), 'UTF-8'),'yellow')
 
     def close(self):
-        # self._client.send(b'SET FOR 214\n')
-        # self._client.send(b'SET SPE 173\n')
+        self._client.send(b'SET FOR 214\n')
+        self._client.send(b'SET SPE 255\n')
         self._client.send(b'SET POS 255\n')
         print_colored(str(self._client.recv(255), 'UTF-8'),'yellow')
 
-# if __name__ == '__main__':
-#     gripper = Gripper()
-#     time.sleep(2)
-#     gripper.open()
+if __name__ == '__main__':
+    gripper = Gripper()
+    gripper.open()

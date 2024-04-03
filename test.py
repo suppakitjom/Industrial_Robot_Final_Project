@@ -1,15 +1,37 @@
-def print_colored(msg: str, color: str):
-        colors = {
-            'red': '\033[91m',
-            'green': '\033[92m',
-            'yellow': '\033[93m',
-            'blue': '\033[94m',
-            'magenta': '\033[95m',
-            'cyan': '\033[96m',
-            'white': '\033[97m',
-            'black': '\033[30m',
-            'reset': '\033[0m',
-        }
-        print(f'{colors[color]}{msg}{colors["reset"]}')
+import socket,time
+from socket import *
 
-print_colored('Hello, world!', 'magenta')
+
+host    = '10.10.0.98'
+port_conv = 2002
+
+c = socket(AF_INET, SOCK_STREAM)
+#c.bind(('10.10.0.98', 2002))
+
+
+
+#c = socket.socket()
+
+#with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as c:
+c.bind((host , port_conv))
+print ("socket binded to %s" %(port_conv)) 
+
+c.listen(1)
+print ("socket is listening") 
+conv, addr = c.accept()
+with conv:
+    print(f"Connected by {addr}")
+    conv.sendall(b'activate,tcp,0.0\n')
+    time.sleep(1)
+
+    conv.sendall(b'pwr_on,conv,0\n')
+    time.sleep(1)
+
+    conv.sendall(b'set_vel,conv,20\n')
+    time.sleep(1)
+
+    conv.sendall(b'jog_stop,conv,0\n')
+    time.sleep(1)
+
+    conv_recv = conv.recv(100)
+    print(conv_recv)
