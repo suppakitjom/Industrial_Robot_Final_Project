@@ -23,7 +23,7 @@ class Vision:
         dx,dy,dradian = 0,0,0
         while True:
             obj_pos = self._client.recv(255).decode('utf-8').split()[0]
-            print(obj_pos)
+            # print(obj_pos)
             poslist = [x for x in obj_pos.strip()[1:-1].split(',')]
             if poslist[0] == 'TRUE':
                 dx,dy,dtheta = [float(x) for x in poslist[1:]] # mm

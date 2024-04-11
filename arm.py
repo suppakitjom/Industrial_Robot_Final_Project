@@ -67,7 +67,7 @@ class Arm:
         time.sleep(task_time or 1)
 
     def standby_pos(self):
-        self.movej(x=.046, y=-.32, z=.2, rx=2.2, ry=2.239, rz=0, task_time=2, relative=False)
+        self.movej(x=.046, y=-.32, z=.065, rx=2.2, ry=2.24, rz=0, task_time=2, relative=False)
         print_colored('Arm moving to standby position...','cyan')
 
     def home_pos(self):
