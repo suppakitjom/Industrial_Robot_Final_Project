@@ -21,6 +21,12 @@ _Flow of the inspection_
 
 Once the video feed is acquired, each frame is then passed to the Vision Assistant for the grayscale plane to be extracted for more efficient image processing.
 
+The intensity value is simply the average of the RGB value of each pixel.
+
+$$
+I = \frac{R + G + B}{3}
+$$
+
 <div align="center">
 
 ![Grayscale plane extraction](./imgs/extract_grayscale_plane.png)
@@ -29,7 +35,7 @@ _Grayscale plane extraction_
 
 </div>
 
-The grayscale frame is then passed to the calibration stage where the distance measurements are calibrated and the origin of the image is set to the center of the image.
+The grayscale frame is then passed to the calibration stage where the distance measurements are calibrated using the distortion model and the origin of the image is set to the center of the image.
 
 <div align="center">
 
@@ -39,7 +45,17 @@ _Calibration stage_
 
 </div>
 
-After that, the frame in then inspected to see if if finds the object of interest. Here we are using the Object Detection function to find the object.
+After that, the frame in then inspected to see if if finds the object of interest. Here we are using the Object Detection function, which uses the 8-connectivity method to detect an object.
+
+$$
+\left[
+\begin{matrix}
+1 & 1 & 1 \\
+1 & X & 1 \\
+1 & 1 & 1 \\
+\end{matrix}
+\right]
+$$
 
 <div align="center">
 
