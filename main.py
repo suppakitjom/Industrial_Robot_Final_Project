@@ -1,22 +1,18 @@
 from arm import Arm
-from conveyor import Conveyor
 from gripper import Gripper
 from vision import Vision
 import time
-import math
 
 ur_arm = Arm()
-# conveyor = Conveyor() # not needed in the real demo
 gripper = Gripper()
 vision = Vision()
 
-# conveyor.run_conveyor()
-
-# ur_arm.home_pos()
+ur_arm.home_pos()
+time.sleep(2)
 
 ur_arm.standby_pos()
 gripper.open()
-# time.sleep(1)
+
 print()
 while 1:
     dx,dy,dradian = vision.get_obj_pos()
@@ -30,5 +26,3 @@ while 1:
     time.sleep(2)
     gripper.open()
     ur_arm.standby_pos()
-
-# # conveyor.stop_conveyor()
